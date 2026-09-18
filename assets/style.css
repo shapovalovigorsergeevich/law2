@@ -9,3 +9,31 @@
 @media(prefers-reduced-motion:reduce){
   .intro-screen{transition:none}
 }
+
+/* === Reference hero and brand styling === */
+.reference-hero{min-height:690px}
+.hero-library{background-image:url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=2400&q=90");background-position:center;background-size:cover;filter:blur(.35px) saturate(.6) brightness(.72);transform:scale(1.03)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,18,34,.96) 0%,rgba(2,18,34,.86) 43%,rgba(2,18,34,.35) 68%,rgba(2,18,34,.18) 100%)}
+.reference-hero .hero-grid{min-height:690px;grid-template-columns:1fr .9fr;gap:38px}
+.reference-hero .hero-copy{padding:80px 0}
+.reference-hero h1{font-size:clamp(62px,5.9vw,96px);letter-spacing:-2.4px}
+.reference-hero .hero-portrait{width:min(520px,100%);align-self:stretch;display:flex;align-items:flex-end;background:transparent;box-shadow:none;border:0}
+.reference-hero .hero-portrait img{width:100%;height:auto;max-height:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 30px 35px rgba(0,0,0,.5))}
+.brand{gap:9px}
+.brand-scales{width:56px;height:44px;flex:0 0 56px;fill:none;stroke:var(--gold2);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))}
+.brand-name{padding-left:7px;border-left:1px solid rgba(144,166,184,.28)}
+.brand-name strong{font-family:var(--serif);font-size:15px;line-height:.84}
+.brand-name small{font-size:7px;letter-spacing:1.6px}
+.site-header{background:rgba(2,17,32,.78)}
+.nav{height:77px}
+.desktop-nav{gap:22px;font-size:11px}
+.icon-btn{font-size:15px}
+.nav-cta{padding:7px 13px;background:transparent;color:#d9e1e8}
+.dashboard{margin-top:10px}
+.dash-card{background:linear-gradient(150deg,rgba(10,39,65,.96),rgba(3,24,43,.98));border-color:rgba(112,145,171,.28)}
+@media(max-width:780px){
+  .reference-hero .hero-grid{min-height:auto}
+  .reference-hero .hero-portrait{order:-1;align-self:center;width:min(380px,100%);min-height:0}
+  .reference-hero .hero-copy{padding:0}
+  .brand-scales{width:48px;height:38px;flex-basis:48px}
+}
