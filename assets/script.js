@@ -1,27 +1,5 @@
-
-const header=document.querySelector('.header');
-window.addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>60));
-const io=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:.1});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-const modal=document.getElementById('modal');
-document.querySelectorAll('[data-consult]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();modal.classList.add('open')}));
-document.querySelector('[data-close]').addEventListener('click',()=>modal.classList.remove('open'));
-modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
-
-const form=document.getElementById('leadForm');
-form.addEventListener('submit',e=>{
- e.preventDefault();
- const data=Object.fromEntries(new FormData(form));
- const subject=encodeURIComponent('Заявка с сайта — '+data.name);
- const body=encodeURIComponent(`Имя: ${data.name}\nТелефон: ${data.phone}\nВопрос: ${data.message}`);
- window.location.href=`mailto:info@shapovalov-law.ru?subject=${subject}&body=${body}`;
-});
-document.querySelector('.burger').addEventListener('click',()=>{
- const menu=document.querySelector('.menu');
- const open=menu.dataset.open==='1';
- menu.dataset.open=open?'0':'1';
- menu.style.display=open?'none':'flex';
- menu.style.position='absolute';menu.style.top='82px';menu.style.left='0';menu.style.right='0';
- menu.style.padding='20px';menu.style.background='#0a121b';menu.style.flexDirection='column';
-});
+document.addEventListener('DOMContentLoaded',()=>{const toggle=document.querySelector('.menu-toggle'),mobile=document.getElementById('mobileNav');if(toggle&&mobile){toggle.addEventListener('click',()=>{mobile.style.display=mobile.style.display==='block'?'none':'block'})}
+const date=document.getElementById('bookingDate'),time=document.getElementById('bookingTime');if(date&&time){const now=new Date();date.min=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,10);const slots=['10:00','11:00','12:00','14:00','15:00','16:00','17:00','18:00'];time.innerHTML=slots.map(s=>'<option value="'+s+'">'+s+'</option>').join('');}
+const form=document.getElementById('bookingForm');if(form){form.addEventListener('submit',e=>{e.preventDefault();const d=Object.fromEntries(new FormData(form));const subject=encodeURIComponent('Онлайн-консультация — '+d.date+' '+d.time);const body=encodeURIComponent('Имя: '+d.name+'\nТелефон: '+d.phone+'\nДата: '+d.date+'\nВремя: '+d.time+'\nВопрос: '+(d.message||''));location.href='mailto:shapovalove.igor@yandex.ru?subject='+subject+'&body='+body;});}
+const grid=document.getElementById('newsGrid');if(grid){fetch('data/news.json?'+Date.now()).then(r=>r.json()).then(data=>{document.getElementById('newsUpdated').textContent='Обновлено: '+(data.updated_at||'автоматически');const items=data.items||[];if(!items.length){grid.innerHTML='<div class="empty">Новости временно недоступны. Откройте официальные источники ниже.</div>';return}grid.innerHTML=items.map(n=>'<article class="news-card"><div class="news-source">'+esc(n.source)+'</div><div class="news-date">'+esc(n.date||'')+'</div><h2>'+esc(n.title)+'</h2><p>'+esc(n.description||'')+'</p><a href="'+safeUrl(n.url)+'" target="_blank" rel="noopener">Читать источник →</a></article>').join('')}).catch(()=>{grid.innerHTML='<div class="empty">Не удалось загрузить ленту. Попробуйте обновить страницу.</div>'})}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function safeUrl(u){try{const x=new URL(u);return /^https?:$/.test(x.protocol)?x.href:'#'}catch{return '#'}}});
