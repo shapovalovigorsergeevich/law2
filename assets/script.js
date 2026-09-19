@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded',()=>{const intro=document.getElementById('introScreen');if(intro)setTimeout(()=>intro.classList.add('hide'),2000);
+document.addEventListener('DOMContentLoaded',()=>{const intro=document.getElementById('introScreen');if(intro)setTimeout(()=>intro.classList.add('hide'),2500);
 const sections=[...document.querySelectorAll('section,.dash-card,.hero-copy,.hero-portrait,.statement h2,.statement p')];let lastY=window.scrollY;let timer;
 function updateBlur(){const y=window.scrollY,dir=y>=lastY?'down':'up',h=innerHeight;sections.forEach(el=>{const r=el.getBoundingClientRect();const leaving=dir==='down'?r.bottom<Math.min(110,h*.22):r.top>Math.max(h-110,h*.78);el.classList.toggle('blur-out',leaving);el.classList.toggle('blur-from-bottom',leaving&&dir==='up')});lastY=y}
 window.addEventListener('scroll',()=>{clearTimeout(timer);timer=setTimeout(updateBlur,12)},{passive:true});updateBlur();
